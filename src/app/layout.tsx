@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Croissant_One,
+  Noto_Serif_JP,
+} from "next/font/google";
 import "./globals.css";
+import Header from "@/layout/header";
+import Footer from "@/layout/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -10,6 +17,20 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+export const croissantOne = Croissant_One({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-croissant-one",
+});
+
+export const notoSerifJP = Noto_Serif_JP({
+  weight: ["200", "300", "400", "500", "600", "700", "900"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-noto-serif-jp",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +48,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
