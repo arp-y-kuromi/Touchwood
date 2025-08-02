@@ -17,17 +17,34 @@ const Content: React.FC = () => {
       </div>
 
       <div className="w-full text-center text-Main-Green-2 font-semibold font-['Noto_Serif_JP'] text-xs md:text-xl md:leading-9 space-y-2">
-        <p>お客様の毎日をちょっと明るくしてくれる、</p>
-        <p>そんな"ささやかな幸運"になればと思っています。</p>
-        <p>スペインやフランスの地中海料理を中心に、</p>
         <p>
-          太陽と風を感じるような一皿を、カジュアルにご用意しております。食べることを楽しむのはもちろん、
+          お客様の毎日をちょっと明るくしてくれる、
+          <br className="block md:hidden" />
+          そんな"ささやかな幸運"になればと思っています。
         </p>
+        <p>
+          スペインやフランスの地中海料理を中心に、
+          <br />
+          太陽と風を感じるような一皿を、
+          <br className="block md:hidden" />
+          カジュアルにご用意しております。
+        </p>
+        <br className="block md:hidden" />
+        <p>食べることを楽しむのはもちろん、</p>
         <p>大切な人との会話や、ひとり時間も心地よく過ごせるように。</p>
         <p>店内でのご提供に加え、ご自宅やオフィスでも</p>
         <p>
-          本格的な味を楽しんでいただける出張・ケータリングプランもご用意。ご家族との食事、記念日、企業パーティーなど、さまざまなシーンに合わせてご利用いただけます。温かく、心に残る時間をお届けします。
+          本格的な味を楽しんでいただける
+          <br className="block md:hidden" />
+          出張・ケータリングプランもご用意。
         </p>
+        <br className="block md:hidden" />
+        <p>
+          ご家族との食事、記念日、企業パーティーなど、
+          <br className="block md:hidden" />
+          さまざまなシーンに合わせてご利用いただけます。
+        </p>
+        <p>温かく、心に残る時間をお届けします。</p>
       </div>
     </div>
   );

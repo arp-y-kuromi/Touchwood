@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   return (
     <>
       {/* PC版ヘッダー */}
-      <header className="hidden lg:block w-full bg-white/70">
+      <header className="hidden lg:block w-full bg-white fixed top-0 left-0 right-0 z-30">
         <div className="max-w-screen mx-auto px-8 py-6 flex justify-between items-center">
           <Link
             href="/"
@@ -49,7 +49,7 @@ const Header: React.FC = () => {
       </header>
 
       {/* SP版ヘッダー */}
-      <header className="lg:hidden w-full bg-white/70">
+      <header className="lg:hidden w-full bg-white fixed top-0 left-0 right-0 z-40">
         <div className="w-full px-4 py-2 flex justify-between items-center">
           <Link
             href="/"
@@ -65,11 +65,10 @@ const Header: React.FC = () => {
 
             <button
               onClick={toggleMenu}
-              className="w-6 h-6 relative focus:outline-none"
+              className="w-6 h-6 relative focus:outline-none z-50"
               aria-label="メニューを開く"
               aria-expanded={isMenuOpen}
             >
-              {/* ハンバーガーライン */}
               <span
                 className={`block absolute left-1 top-[6px] w-4 h-0.5 bg-Main-Green-2 transform transition duration-300 ${
                   isMenuOpen ? "rotate-45 translate-y-1" : ""
@@ -88,29 +87,84 @@ const Header: React.FC = () => {
             </button>
           </div>
         </div>
-
-        {/* 展開メニュー */}
-        <div
-          className={`transition-all duration-300 overflow-hidden ${
-            isMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
-          }`}
-        >
-          <nav className="px-4 py-4 space-y-4 bg-white/70 backdrop-blur-md">
-            {["/", "/menu", "/service"].map((path, i) => (
-              <Link
-                key={i}
-                href={path}
-                onClick={() => setIsMenuOpen(false)}
-                className="block text-Main-Green-2 text-lg font-black font-['Noto_Serif_JP'] hover:opacity-70 transition"
-              >
-                {path === "/"
-                  ? "Home"
-                  : path.slice(1).charAt(0).toUpperCase() + path.slice(2)}
-              </Link>
-            ))}
-          </nav>
-        </div>
       </header>
+
+      {/* モーダルオーバーレイとメニュー */}
+      {isMenuOpen && (
+        <>
+          {/* 背景オーバーレイ（ヘッダー下部分のみ） */}
+          <div
+            className="fixed left-0 right-0 bottom-0 top-[60px] bg-black opacity-40 z-50 lg:hidden"
+            onClick={() => setIsMenuOpen(false)}
+          />
+
+          {/* 展開メニュー */}
+          <div className="fixed top-0 left-0 right-0 z-50 lg:hidden">
+            <div className="w-full bg-white/70 px-4 py-2 flex justify-between items-center">
+              <Link
+                href="/"
+                className="text-Main-Green-2 text-base font-['Croissant_One']"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Touch wood
+              </Link>
+
+              <div className="flex items-center gap-3">
+                <button className="px-4 py-2 bg-Main-Brown-2 rounded-full text-white text-xs font-bold hover:bg-Main-Brown-3 transition">
+                  Reservation
+                </button>
+
+                <button
+                  onClick={toggleMenu}
+                  className="w-6 h-6 relative focus:outline-none"
+                  aria-label="メニューを閉じる"
+                >
+                  <span className="block absolute left-1 top-[6px] w-4 h-0.5 bg-Main-Green-2 transform rotate-45 translate-y-1" />
+                  <span className="block absolute left-1 top-[11px] w-4 h-0.5 bg-Main-Green-2 opacity-0" />
+                  <span className="block absolute left-1 top-[16px] w-4 h-0.5 bg-Main-Green-2 transform -rotate-45 -translate-y-1" />
+                </button>
+              </div>
+            </div>
+
+            {/* メニューコンテンツ */}
+            <div className="bg-white p-4 flex flex-col justify-start items-center gap-1.5">
+              <div className="self-stretch py-3 inline-flex justify-center items-center gap-2.5">
+                <Link
+                  href="/"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="w-72 text-center text-Main-Green-2 text-sm font-bold font-['Noto_Serif_JP'] leading-9 hover:opacity-70 transition"
+                >
+                  Home
+                </Link>
+              </div>
+
+              <div className="w-64 h-0 outline outline-1 outline-offset-[-0.50px] outline-System-Gray-Gray-4" />
+
+              <div className="self-stretch py-3 inline-flex justify-center items-center gap-2.5">
+                <Link
+                  href="/menu"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="w-72 text-center text-Main-Green-2 text-sm font-bold font-['Noto_Serif_JP'] leading-9 hover:opacity-70 transition"
+                >
+                  Menu
+                </Link>
+              </div>
+
+              <div className="w-64 h-0 outline outline-1 outline-offset-[-0.50px] outline-System-Gray-Gray-4" />
+
+              <div className="self-stretch py-3 inline-flex justify-center items-center gap-2.5">
+                <Link
+                  href="/service"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="w-72 text-center text-Main-Green-2 text-sm font-bold font-['Noto_Serif_JP'] leading-9 hover:opacity-70 transition"
+                >
+                  Service
+                </Link>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

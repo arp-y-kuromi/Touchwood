@@ -12,11 +12,11 @@ import "swiper/css/pagination";
 const MainVisual: React.FC = () => {
   const images = [
     "/images/main1.png",
-    "/images/main2.png",
-    "/images/main3.png",
-    "/images/main4.png",
-    "/images/main5.png",
-    "/images/main6.png",
+    "/images/menu.png",
+    "/images/service.png",
+    "/images/main1.png",
+    "/images/menu.png",
+    "/images/service.png",
   ];
 
   return (

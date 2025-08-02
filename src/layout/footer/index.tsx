@@ -196,7 +196,7 @@ const Footer: React.FC = () => {
             <div className="inline-flex justify-start items-center gap-6">
               {/* Instagram */}
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/touchwood2507?igsh=ODZ6NWU3YW91djk0"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -247,7 +247,7 @@ const Footer: React.FC = () => {
           <div className="flex justify-center items-center gap-6">
             {/* Instagram */}
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/touchwood2507?igsh=ODZ6NWU3YW91djk0"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
