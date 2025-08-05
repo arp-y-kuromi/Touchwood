@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   return (
     <>
       {/* PC版ヘッダー */}
-      <header className="hidden lg:block w-full bg-white fixed top-0 left-0 right-0 z-30">
+      <header className="hidden lg:block w-full fixed top-0 left-0 right-0 z-30">
         <div className="max-w-screen mx-auto px-8 py-6 flex justify-between items-center">
           <Link
             href="/"
@@ -25,31 +25,40 @@ const Header: React.FC = () => {
           <nav className="flex items-center gap-10">
             <Link
               href="/"
-              className="text-Main-Green-2 text-2xl font-black font-['Noto_Serif_JP'] hover:opacity-70 transition"
+              className="relative text-Main-Green-2 text-2xl font-black font-['Noto_Serif_JP'] hover:opacity-70 transition-opacity duration-300 group"
             >
               Home
+              {/* ホバー時の下線アニメーション */}
+              <span className="absolute left-1/2 bottom-0 w-0 h-0.5 bg-Main-Green-2 transform -translate-x-1/2 transition-all duration-300 ease-out group-hover:w-full"></span>
             </Link>
             <Link
               href="/menu"
-              className="text-Main-Green-2 text-2xl font-black font-['Noto_Serif_JP'] hover:opacity-70 transition"
+              className="relative text-Main-Green-2 text-2xl font-black font-['Noto_Serif_JP'] hover:opacity-70 transition-opacity duration-300 group"
             >
               Menu
+              {/* ホバー時の下線アニメーション */}
+              <span className="absolute left-1/2 bottom-0 w-0 h-0.5 bg-Main-Green-2 transform -translate-x-1/2 transition-all duration-300 ease-out group-hover:w-full"></span>
             </Link>
             <Link
               href="/service"
-              className="text-Main-Green-2 text-2xl font-black font-['Noto_Serif_JP'] hover:opacity-70 transition"
+              className="relative text-Main-Green-2 text-2xl font-black font-['Noto_Serif_JP'] hover:opacity-70 transition-opacity duration-300 group"
             >
               Service
+              {/* ホバー時の下線アニメーション */}
+              <span className="absolute left-1/2 bottom-0 w-0 h-0.5 bg-Main-Green-2 transform -translate-x-1/2 transition-all duration-300 ease-out group-hover:w-full"></span>
             </Link>
-            <button className="px-6 py-2 bg-Main-Brown-2 rounded-full text-System-Gray-White text-2xl font-black hover:bg-Main-Brown-3 transition">
+            <a
+              href="https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=13311579"
+              className="px-6 py-2 bg-Main-Brown-2 rounded-full text-System-Gray-White text-2xl font-black hover:bg-Main-Brown-3 transition-colors duration-300"
+            >
               Reservation
-            </button>
+            </a>
           </nav>
         </div>
       </header>
 
       {/* SP版ヘッダー */}
-      <header className="lg:hidden w-full bg-white fixed top-0 left-0 right-0 z-40">
+      <header className="lg:hidden w-full fixed top-0 left-0 right-0 z-40">
         <div className="w-full px-4 py-2 flex justify-between items-center">
           <Link
             href="/"
@@ -59,9 +68,12 @@ const Header: React.FC = () => {
           </Link>
 
           <div className="flex items-center gap-3">
-            <button className="px-4 py-2 bg-Main-Brown-2 rounded-full text-white text-xs font-bold hover:bg-Main-Brown-3 transition">
+            <a
+              href="https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=13311579"
+              className="px-4 py-2 bg-Main-Brown-2 rounded-full text-white text-xs font-bold hover:bg-Main-Brown-3 transition-colors duration-300"
+            >
               Reservation
-            </button>
+            </a>
 
             <button
               onClick={toggleMenu}
@@ -110,9 +122,12 @@ const Header: React.FC = () => {
               </Link>
 
               <div className="flex items-center gap-3">
-                <button className="px-4 py-2 bg-Main-Brown-2 rounded-full text-white text-xs font-bold hover:bg-Main-Brown-3 transition">
+                <a
+                  href="https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=13311579"
+                  className="px-4 py-2 bg-Main-Brown-2 rounded-full text-white text-xs font-bold hover:bg-Main-Brown-3 transition-colors duration-300"
+                >
                   Reservation
-                </button>
+                </a>
 
                 <button
                   onClick={toggleMenu}
@@ -132,7 +147,7 @@ const Header: React.FC = () => {
                 <Link
                   href="/"
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-72 text-center text-Main-Green-2 text-sm font-bold font-['Noto_Serif_JP'] leading-9 hover:opacity-70 transition"
+                  className="w-72 text-center text-Main-Green-2 text-sm font-bold font-['Noto_Serif_JP'] leading-9 hover:opacity-70 transition-opacity duration-300"
                 >
                   Home
                 </Link>
@@ -144,7 +159,7 @@ const Header: React.FC = () => {
                 <Link
                   href="/menu"
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-72 text-center text-Main-Green-2 text-sm font-bold font-['Noto_Serif_JP'] leading-9 hover:opacity-70 transition"
+                  className="w-72 text-center text-Main-Green-2 text-sm font-bold font-['Noto_Serif_JP'] leading-9 hover:opacity-70 transition-opacity duration-300"
                 >
                   Menu
                 </Link>
@@ -156,7 +171,7 @@ const Header: React.FC = () => {
                 <Link
                   href="/service"
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-72 text-center text-Main-Green-2 text-sm font-bold font-['Noto_Serif_JP'] leading-9 hover:opacity-70 transition"
+                  className="w-72 text-center text-Main-Green-2 text-sm font-bold font-['Noto_Serif_JP'] leading-9 hover:opacity-70 transition-opacity duration-300"
                 >
                   Service
                 </Link>

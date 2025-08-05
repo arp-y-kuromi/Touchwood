@@ -4,7 +4,7 @@ import Content from "./components/Content";
 
 export default function Home() {
   return (
-    <div className="md:min-h-screen bg-Main-Brown-4">
+    <div className="md:min-h-screen">
       <MainVisual />
       <Content />
     </div>

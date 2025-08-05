@@ -1,8 +1,23 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 const Footer: React.FC = () => {
+  // 住所情報
+  const address = "〒151-0073 東京都渋谷区笹塚３丁目１７−３ つるやビル２階";
+  const encodedAddress = encodeURIComponent(
+    "東京都渋谷区笹塚３丁目１７−３ つるやビル２階"
+  );
+
+  // Googleマップリンク生成
+  const googleMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+
+  const handleMapClick = () => {
+    window.open(googleMapUrl, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <>
       {/* Accessセクション - PC版 */}
@@ -21,7 +36,7 @@ const Footer: React.FC = () => {
                   住所
                 </div>
                 <div className="text-xl font-bold text-Main-Green-2">
-                  〒151-0073 東京都渋谷区笹塚３丁目１７−３ つるやビル２階
+                  {address}
                 </div>
               </div>
 
@@ -75,24 +90,45 @@ const Footer: React.FC = () => {
             </div>
 
             {/* 予約ボタン */}
-            <button className="w-[244px] px-8 py-4 bg-Main-Brown-2 rounded-full inline-flex justify-center items-center gap-2.5 overflow-hidden hover:bg-Main-Brown-1 transition-colors">
+            <a
+              href="https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=13311579"
+              className="w-[244px] px-8 py-4 bg-Main-Brown-2 rounded-full inline-flex justify-center items-center gap-2.5 overflow-hidden hover:bg-Main-Brown-1 transition-colors"
+            >
               <div className="text-center justify-start text-System-Gray-White text-xl font-bold font-['Noto_Serif_JP']">
                 ご予約はこちらから
               </div>
-            </button>
+            </a>
           </div>
 
           {/* 右側：地図/画像エリア */}
           <div className="w-1/2 h-96 relative overflow-hidden rounded-lg">
-            <Image
-              src="/images/mapPC.png"
-              alt="Map / Store Image"
-              fill
-              className="object-cover rounded-lg"
-            />
+            <div
+              className="relative w-full h-full cursor-pointer group"
+              onClick={handleMapClick}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  handleMapClick();
+                }
+              }}
+              aria-label="Googleマップで住所を開く"
+            >
+              <Image
+                src="/images/mapPC.png"
+                alt="Touch wood店舗の地図"
+                fill
+                className="object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+                quality={95}
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                unoptimized
+              />
+            </div>
           </div>
         </div>
       </section>
+
       {/* Accessセクション - SP版 */}
       <section className="lg:hidden w-full bg-Main-Brown-3 px-4 py-7">
         <div className="max-w-md mx-auto flex flex-col gap-8 items-center">
@@ -107,7 +143,7 @@ const Footer: React.FC = () => {
                 住所
               </div>
               <div className="text-[10px] font-bold text-Main-Green-2">
-                〒151-0073 東京都渋谷区笹塚３丁目１７−３ つるやビル２階
+                {address}
               </div>
             </div>
 
@@ -161,23 +197,44 @@ const Footer: React.FC = () => {
           </div>
 
           {/* 予約ボタン */}
-          <button className="px-8 py-3 bg-Main-Brown-2 rounded-full hover:bg-Main-Brown-1 transition-colors">
-            <span className="text-xs font-bold text-System-Gray-White">
+          <a
+            href="https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=13311579"
+            className="px-8 py-3 bg-Main-Brown-2 rounded-full hover:bg-Main-Brown-1 transition-colors"
+          >
+            <div className="text-xs font-bold text-System-Gray-White">
               ご予約はこちらから
-            </span>
-          </button>
+            </div>
+          </a>
 
           {/* 地図/画像エリア */}
           <div className="w-full h-64 relative overflow-hidden rounded-lg">
-            <Image
-              src="/images/mapSP.png"
-              alt="Map / Store Image"
-              fill
-              className="object-cover rounded-lg"
-            />
+            <div
+              className="relative w-full h-full cursor-pointer group"
+              onClick={handleMapClick}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  handleMapClick();
+                }
+              }}
+              aria-label="Googleマップで住所を開く"
+            >
+              <Image
+                src="/images/mapPC.png"
+                alt="Touch wood店舗の地図"
+                fill
+                className="object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+                quality={95}
+                priority
+                sizes="100vw"
+                unoptimized
+              />
+            </div>
           </div>
         </div>
       </section>
+
       {/* PC版フッター */}
       <footer className="hidden lg:block">
         <div className="w-full py-10 bg-Main-Green-2 inline-flex flex-col justify-start items-center gap-14 overflow-hidden">
@@ -208,21 +265,6 @@ const Footer: React.FC = () => {
                   height={64}
                 />
               </a>
-
-              {/* LINE */}
-              <a
-                href="https://line.me"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LINE"
-              >
-                <Image
-                  src="/images/LINE icon.png"
-                  alt="LINE Icon"
-                  width={64}
-                  height={64}
-                />
-              </a>
             </div>
           </div>
 
@@ -232,6 +274,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </footer>
+
       {/* SP版フッター */}
       <footer className="lg:hidden w-full">
         <div className="w-full px-4 pt-6 pb-2.5 bg-Main-Green-2 flex flex-col items-center gap-6">
@@ -255,21 +298,6 @@ const Footer: React.FC = () => {
               <Image
                 src="/images/Instagram icon.png"
                 alt="Instagram Icon"
-                width={64}
-                height={64}
-              />
-            </a>
-
-            {/* LINE */}
-            <a
-              href="https://line.me"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LINE"
-            >
-              <Image
-                src="/images/LINE icon.png"
-                alt="LINE Icon"
                 width={64}
                 height={64}
               />

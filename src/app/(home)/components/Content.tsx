@@ -2,7 +2,7 @@ import React from "react";
 
 const Content: React.FC = () => {
   return (
-    <div className="w-full bg-Main-Brown-4 flex flex-col items-center px-6 py-12 gap-6 md:max-w-5xl md:mx-auto md:px-0 md:py-32 md:gap-16">
+    <div className="w-full flex flex-col items-center px-6 py-12 gap-6 md:max-w-5xl md:mx-auto md:px-0 md:py-32 md:gap-16">
       <div className="w-full text-center text-Main-Green-2 font-normal font-['Croissant_One'] text-xl md:text-5xl">
         Touch wood
       </div>
