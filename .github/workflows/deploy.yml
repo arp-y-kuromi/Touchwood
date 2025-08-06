@@ -1,0 +1,38 @@
+name: Netlify CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v3
+
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: 依存関係インストール
+        run: npm ci
+
+      - name: ビルド実行
+        run: npm run build
+
+      - name: Netlifyにデプロイ（mainブランチへのpush時のみ）
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: nwtgck/actions-netlify@v1
+        with:
+          publish-dir: ./out
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
