@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 
 interface ServiceItem {
@@ -29,7 +30,7 @@ const serviceData: ServiceItem[] = [
       </>
     ),
     note: "※アレルギー食材等ございましたら、ご予約時にお申し付けください。",
-    imageSrc: "/images/service.JPG",
+    imageSrc: "/images/service.jpeg",
     imageAlt: "Service Image",
   },
   {
@@ -46,7 +47,7 @@ const serviceData: ServiceItem[] = [
       </>
     ),
     note: "※アレルギー食材等ございましたら、ご予約時にお申し付けください。",
-    imageSrc: "/images/menu.jpeg",
+    imageSrc: "/images/menu.JPG",
     imageAlt: "Menu Image",
   },
 ];
@@ -94,8 +95,40 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
 };
 
 const ServiceSection: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.1, // 10%表示された時に発火
+        rootMargin: "0px 0px -10% 0px",
+      }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (elementRef.current) {
+        observer.unobserve(elementRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <section className="my-6 lg:my-10 font-['Noto_Serif_JP']">
+    <section
+      ref={elementRef}
+      className={`my-6 lg:my-10 font-['Noto_Serif_JP'] transition-all duration-1000 ease-out ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+    >
       <div className="px-4 lg:px-20 flex flex-col gap-8 lg:gap-16">
         <header>
           <h2 className="text-Main-Green-2 text-3xl lg:text-5xl font-black font-['Noto_Serif_JP']">

@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 
 interface MenuCourse {
@@ -89,7 +90,7 @@ const MenuImage: React.FC<{ isMobile?: boolean }> = ({ isMobile = false }) => {
         <div className="relative h-52 w-72">
           <div className="absolute top-6 left-6 w-full h-48 bg-Main-Brown-3 z-0" />
           <Image
-            src="/images/menu.jpeg"
+            src="/images/menu.JPG"
             alt="Menu Image"
             width={288}
             height={192}
@@ -104,7 +105,7 @@ const MenuImage: React.FC<{ isMobile?: boolean }> = ({ isMobile = false }) => {
     <div className="relative w-[939px] h-[609px]">
       <div className="absolute left-16 top-14 w-[875px] h-[553px] bg-Main-Brown-3 z-0" />
       <Image
-        src="/images/menu.jpeg"
+        src="/images/menu.JPG"
         alt="Menu Image"
         width={875}
         height={553}
@@ -114,9 +115,15 @@ const MenuImage: React.FC<{ isMobile?: boolean }> = ({ isMobile = false }) => {
   );
 };
 
-const DesktopMenuSection: React.FC = () => {
+const DesktopMenuSection: React.FC<{ isVisible: boolean }> = ({
+  isVisible,
+}) => {
   return (
-    <div className="hidden lg:block font-['Noto_Serif_JP']">
+    <div
+      className={`hidden lg:block font-['Noto_Serif_JP'] transition-all duration-1000 ease-out ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+    >
       <div className="max-w-screen mx-auto px-20 py-16">
         <header className="mb-12">
           <h2 className="text-Main-Green-2 text-5xl font-black font-['Noto_Serif_JP']">
@@ -140,9 +147,13 @@ const DesktopMenuSection: React.FC = () => {
   );
 };
 
-const MobileMenuSection: React.FC = () => {
+const MobileMenuSection: React.FC<{ isVisible: boolean }> = ({ isVisible }) => {
   return (
-    <div className="lg:hidden font-['Noto_Serif_JP'] pb-10">
+    <div
+      className={`lg:hidden font-['Noto_Serif_JP'] pb-10 transition-all duration-1000 ease-out ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+    >
       <div className="px-4 py-5">
         <MenuImage isMobile />
       </div>
@@ -165,11 +176,38 @@ const MobileMenuSection: React.FC = () => {
 };
 
 const MenuSection: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -10% 0px",
+      }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (elementRef.current) {
+        observer.unobserve(elementRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <>
-      <DesktopMenuSection />
-      <MobileMenuSection />
-    </>
+    <div ref={elementRef}>
+      <DesktopMenuSection isVisible={isVisible} />
+      <MobileMenuSection isVisible={isVisible} />
+    </div>
   );
 };
 

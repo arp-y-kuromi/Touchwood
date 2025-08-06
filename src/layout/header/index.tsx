@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 const Header: React.FC = () => {
@@ -10,10 +10,18 @@ const Header: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [isMenuOpen]);
+
   return (
     <>
       {/* PC版ヘッダー */}
-      <header className="hidden lg:block w-full fixed top-0 left-0 right-0 z-30">
+      <header className="hidden lg:block w-full bg-white z-30">
         <div className="max-w-screen mx-auto px-8 py-6 flex justify-between items-center">
           <Link
             href="/"
@@ -56,9 +64,8 @@ const Header: React.FC = () => {
           </nav>
         </div>
       </header>
-
       {/* SP版ヘッダー */}
-      <header className="lg:hidden w-full fixed top-0 left-0 right-0 z-40">
+      <header className="lg:hidden w-full bg-white z-40">
         <div className="w-full px-4 py-2 flex justify-between items-center">
           <Link
             href="/"
@@ -100,7 +107,6 @@ const Header: React.FC = () => {
           </div>
         </div>
       </header>
-
       {/* モーダルオーバーレイとメニュー */}
       {isMenuOpen && (
         <>
