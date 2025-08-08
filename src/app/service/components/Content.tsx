@@ -54,41 +54,173 @@ const serviceData: ServiceItem[] = [
 
 interface ServiceCardProps {
   service: ServiceItem;
+  index: number;
+  isVisible: boolean;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({
+  service,
+  index,
+  isVisible,
+}) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [contentVisible, setContentVisible] = useState(false);
+
+  useEffect(() => {
+    if (isVisible) {
+      const imageDelay = index * 200;
+      const contentDelay = index * 200 + 400;
+
+      const imageTimer = setTimeout(() => setImageLoaded(true), imageDelay);
+      const contentTimer = setTimeout(
+        () => setContentVisible(true),
+        contentDelay
+      );
+
+      return () => {
+        clearTimeout(imageTimer);
+        clearTimeout(contentTimer);
+      };
+    }
+  }, [isVisible, index]);
+
   return (
-    <article className="w-full lg:w-[685px] flex flex-col gap-4 lg:gap-6 lg:h-full">
-      {/* 画像セクション */}
-      <div className="relative h-48 lg:h-96 flex justify-center items-center bg-System-Gray-White overflow-hidden rounded-none">
+    <article className="w-full lg:w-[685px] flex flex-col gap-4 lg:gap-6 lg:h-full group">
+      {/* 画像セクション - 3D回転とスケール */}
+      <div
+        className={`
+          relative h-48 lg:h-96 flex justify-center items-center bg-System-Gray-White overflow-hidden rounded-none
+          transition-all duration-1000 ease-out transform-gpu perspective-1000
+          ${
+            imageLoaded
+              ? "opacity-100 scale-100 rotate-0"
+              : "opacity-0 scale-75 rotate-y-12"
+          }
+          hover:scale-105 hover:shadow-2xl hover:rotate-1
+        `}
+        style={{
+          transformStyle: "preserve-3d",
+          backfaceVisibility: "hidden",
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-Main-Green-2/10 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         <Image
           src={service.imageSrc}
           alt={service.imageAlt}
           fill
-          className="object-cover"
+          className={`
+            object-cover transition-all duration-700 ease-out
+            ${imageLoaded ? "filter-none" : "blur-sm grayscale"}
+            group-hover:scale-110
+          `}
           sizes="(max-width: 768px) 100vw, 685px"
         />
+
+        {/* 光のエフェクト */}
+        <div
+          className={`
+          absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
+          transform -skew-x-12 transition-all duration-1000 ease-out
+          ${imageLoaded ? "translate-x-full" : "-translate-x-full"}
+        `}
+        ></div>
       </div>
 
-      {/* コンテンツセクション */}
-      <div className="bg-System-Gray-White px-4 lg:px-10 py-6 lg:py-8 rounded-lg flex flex-col gap-4 lg:gap-6 lg:flex-1 lg:justify-between">
-        <header className="flex flex-col gap-3 lg:gap-4">
-          <h3 className="text-xl lg:text-3xl text-Main-Green-2 font-bold">
+      {/* コンテンツセクション - スライド＆フェード */}
+      <div
+        className={`
+        bg-System-Gray-White px-4 lg:px-10 py-6 lg:py-8 rounded-lg flex flex-col gap-4 lg:gap-6 lg:flex-1 lg:justify-between
+        transition-all duration-800 ease-out transform-gpu
+        ${
+          contentVisible
+            ? "opacity-100 translate-y-0 scale-100"
+            : "opacity-0 translate-y-8 scale-95"
+        }
+        hover:shadow-lg hover:-translate-y-1
+        relative overflow-hidden
+      `}
+      >
+        {/* 背景のパルスエフェクト */}
+        <div className="absolute inset-0 bg-gradient-to-br from-Main-Green-2/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+        <header
+          className={`
+          flex flex-col gap-3 lg:gap-4 relative z-10
+          transition-all duration-600 ease-out
+          ${
+            contentVisible
+              ? "opacity-100 translate-x-0"
+              : "opacity-0 -translate-x-4"
+          }
+        `}
+        >
+          <h3
+            className={`
+            text-xl lg:text-3xl text-Main-Green-2 font-bold
+            transition-all duration-500 ease-out
+            hover:text-Main-Green-1 hover:scale-105 transform-gpu
+          `}
+          >
             {service.title}
           </h3>
-          <h4 className="text-base lg:text-xl text-Main-Green-2 font-bold leading-snug">
+          <h4
+            className={`
+            text-base lg:text-xl text-Main-Green-2 font-bold leading-snug
+            transition-all duration-500 ease-out delay-100
+            ${
+              contentVisible
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 -translate-x-4"
+            }
+          `}
+          >
             {service.subtitle}
           </h4>
         </header>
 
-        <div className="flex flex-col gap-3 lg:gap-4 lg:flex-1 lg:justify-between">
-          <p className="text-sm lg:text-base text-Main-Green-2 font-bold leading-snug">
+        <div
+          className={`
+          flex flex-col gap-3 lg:gap-4 lg:flex-1 lg:justify-between relative z-10
+          transition-all duration-700 ease-out delay-200
+          ${
+            contentVisible
+              ? "opacity-100 translate-x-0"
+              : "opacity-0 translate-x-4"
+          }
+        `}
+        >
+          <p
+            className={`
+            text-sm lg:text-base text-Main-Green-2 font-bold leading-snug
+            transition-all duration-500 ease-out
+            hover:text-Main-Green-1
+          `}
+          >
             {service.description}
           </p>
-          <p className="text-xs lg:text-sm text-Main-Brown-2 font-semibold leading-tight">
+          <p
+            className={`
+            text-xs lg:text-sm text-Main-Brown-2 font-semibold leading-tight
+            transition-all duration-500 ease-out delay-300
+            ${
+              contentVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-2"
+            }
+          `}
+          >
             {service.note}
           </p>
         </div>
+
+        {/* 装飾的なアクセント */}
+        <div
+          className={`
+          absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-Main-Green-2 to-Main-Brown-2
+          transform origin-left transition-all duration-1000 ease-out
+          ${contentVisible ? "scale-x-100" : "scale-x-0"}
+        `}
+        ></div>
       </div>
     </article>
   );
@@ -96,6 +228,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
 
 const ServiceSection: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [titleVisible, setTitleVisible] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -103,10 +236,12 @@ const ServiceSection: React.FC = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          // タイトルのアニメーションを少し遅らせる
+          setTimeout(() => setTitleVisible(true), 200);
         }
       },
       {
-        threshold: 0.1, // 10%表示された時に発火
+        threshold: 0.1,
         rootMargin: "0px 0px -10% 0px",
       }
     );
@@ -125,9 +260,7 @@ const ServiceSection: React.FC = () => {
   return (
     <section
       ref={elementRef}
-      className={`my-6 lg:my-10 font-['Noto_Serif_JP'] transition-all duration-1000 ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      }`}
+      className="my-6 lg:my-10 font-['Noto_Serif_JP'] overflow-hidden"
     >
       <div className="px-4 lg:px-20 flex flex-col gap-8 lg:gap-16">
         <header>
@@ -136,12 +269,28 @@ const ServiceSection: React.FC = () => {
           </h2>
         </header>
 
+        {/* カードセクション */}
         <div className="flex flex-col lg:flex-row justify-center gap-8 lg:gap-28 lg:items-stretch">
-          {serviceData.map((service) => (
-            <ServiceCard key={service.id} service={service} />
+          {serviceData.map((service, index) => (
+            <ServiceCard
+              key={service.id}
+              service={service}
+              index={index}
+              isVisible={isVisible}
+            />
           ))}
         </div>
       </div>
+
+      {/* セクション全体の装飾的背景 */}
+      <div
+        className={`
+        fixed inset-0 pointer-events-none z-0
+        bg-gradient-radial from-Main-Green-2/5 via-transparent to-transparent
+        transition-opacity duration-2000 ease-out
+        ${isVisible ? "opacity-100" : "opacity-0"}
+      `}
+      ></div>
     </section>
   );
 };

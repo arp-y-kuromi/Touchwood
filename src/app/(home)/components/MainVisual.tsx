@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -10,6 +10,17 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const MainVisual: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // コンポーネントがマウントされた後、少し遅延してアニメーションを開始
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const images = [
     "/images/main1.JPG",
     "/images/service.jpeg",
@@ -20,7 +31,11 @@ const MainVisual: React.FC = () => {
   ];
 
   return (
-    <div className="w-full relative">
+    <div
+      className={`w-full relative transition-all duration-1000 ease-out transform ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+    >
       <div className="relative w-full h-[60vh] md:h-[835px]">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
@@ -73,7 +88,7 @@ const MainVisual: React.FC = () => {
         .swiper-slide-prev,
         .swiper-slide-next {
           filter: grayscale(100%) brightness(0.8);
-          transition: filter 0.3s ease;
+          transition: filter 0.2s ease;
           transform: scale(0.95);
         }
 
