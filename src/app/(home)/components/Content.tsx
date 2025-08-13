@@ -93,7 +93,7 @@ const Content: React.FC = () => {
       {/* メインタイトル - 3D効果 */}
       <div
         className={`
-        w-full text-center text-Main-Green-2 font-normal font-['Croissant_One'] text-xl md:text-5xl
+        w-full text-center text-Main-Green-2 font-black font-['Noto_Serif_JP'] text-xl md:text-5xl
         relative group
         transition-all duration-1500 ease-out transform-gpu
         ${

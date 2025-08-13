@@ -264,7 +264,7 @@ const ServiceSection: React.FC = () => {
     >
       <div className="px-4 lg:px-20 flex flex-col gap-8 lg:gap-16">
         <header>
-          <h2 className="text-Main-Green-2 text-3xl lg:text-5xl font-black font-['Noto_Serif_JP']">
+          <h2 className="text-Main-Green-2 text-xl lg:text-5xl font-black font-['Noto_Serif_JP'] text-center lg:text-left">
             Service
           </h2>
         </header>
