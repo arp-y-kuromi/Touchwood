@@ -516,7 +516,7 @@ const Footer: React.FC = () => {
             <div className="self-stretch flex flex-col justify-start items-center gap-2.5">
               <Link
                 href="/"
-                className={`text-center justify-start text-System-Gray-White text-3xl font-normal font-['Croissant_One'] hover:opacity-80 transition-all duration-500 hover:scale-110 transform ${
+                className={`text-center justify-start text-System-Gray-White text-3xl font-black font-['Noto_Serif_JP'] hover:opacity-80 transition-all duration-500 hover:scale-110 transform ${
                   footerPCVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 -translate-y-8"
@@ -611,7 +611,7 @@ const Footer: React.FC = () => {
           {/* ロゴ */}
           <Link
             href="/"
-            className={`text-center text-System-Gray-White text-base font-normal font-['Croissant_One'] hover:opacity-80 transition-all duration-500 hover:scale-110 transform ${
+            className={`text-center text-System-Gray-White text-base font-black font-['Noto_Serif_JP'] hover:opacity-80 transition-all duration-500 hover:scale-110 transform ${
               footerSPVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 -translate-y-8"
