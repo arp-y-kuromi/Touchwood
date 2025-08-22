@@ -32,6 +32,14 @@ const Header: React.FC = () => {
 
           <nav className="flex items-center gap-10">
             <Link
+              href="/"
+              className="relative text-Main-Green-2 text-2xl font-black font-['Noto_Serif_JP'] hover:opacity-70 transition-opacity duration-300 group"
+            >
+              Home
+              {/* ホバー時の下線アニメーション */}
+              <span className="absolute left-1/2 bottom-0 w-0 h-0.5 bg-Main-Green-2 transform -translate-x-1/2 transition-all duration-300 ease-out group-hover:w-full"></span>
+            </Link>
+            <Link
               href="/contact"
               className="relative text-Main-Green-2 text-2xl font-black font-['Noto_Serif_JP'] hover:opacity-70 transition-opacity duration-300 group"
             >
@@ -100,6 +108,15 @@ const Header: React.FC = () => {
               : "max-h-0 opacity-0 overflow-hidden"
           }`}
         >
+          <div className="p-4">
+            <Link
+              href="/"
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full text-center py-3 text-Main-Green-2 text-sm font-bold font-['Noto_Serif_JP'] hover:opacity-70 transition-opacity duration-300"
+            >
+              Home
+            </Link>
+          </div>
           <div className="p-4">
             <Link
               href="/contact"

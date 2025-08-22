@@ -59,7 +59,7 @@ export default function Page() {
     <div className="w-full min-h-screen">
       <div className="mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-40 py-8 sm:py-12 md:py-16">
         {/* タイトル */}
-        <div className="text-center text-Main-Green-2 text-3xl md:text-5xl font-black font-['Noto_Serif_JP'] leading-9 pb-5 md:pb-10">
+        <div className="text-center text-Main-Green-2 text-xl md:text-3xl font-black font-['Noto_Serif_JP'] leading-9 pb-5 md:pb-10">
           お問い合わせ
         </div>
 
