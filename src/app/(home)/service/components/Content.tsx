@@ -68,8 +68,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 
   useEffect(() => {
     if (isVisible) {
-      const imageDelay = index * 200;
-      const contentDelay = index * 200 + 400;
+      const imageDelay = index * 300;
+      const contentDelay = index * 300 + 400;
 
       const imageTimer = setTimeout(() => setImageLoaded(true), imageDelay);
       const contentTimer = setTimeout(
@@ -85,16 +85,16 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   }, [isVisible, index]);
 
   return (
-    <article className="w-full lg:w-[685px] flex flex-col gap-4 lg:gap-6 lg:h-full group">
-      {/* 画像セクション - 3D回転とスケール */}
+    <article className="w-full flex flex-col lg:flex-row gap-4 lg:gap-8 group mb-8 lg:mb-16 last:mb-0">
+      {/* 画像セクション - 左側 */}
       <div
         className={`
-          relative h-48 lg:h-96 flex justify-center items-center bg-System-Gray-White overflow-hidden rounded-none
+          relative h-48 lg:h-80 lg:w-1/2 flex justify-center items-center bg-System-Gray-White overflow-hidden rounded-none
           transition-all duration-1000 ease-out transform-gpu perspective-1000
           ${
             imageLoaded
-              ? "opacity-100 scale-100 rotate-0"
-              : "opacity-0 scale-75 rotate-y-12"
+              ? "opacity-100 scale-100 translate-x-0"
+              : "opacity-0 scale-75 -translate-x-8"
           }
           hover:scale-105 hover:shadow-2xl hover:rotate-1
         `}
@@ -113,7 +113,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
             ${imageLoaded ? "filter-none" : "blur-sm grayscale"}
             group-hover:scale-110
           `}
-          sizes="(max-width: 768px) 100vw, 685px"
+          sizes="(max-width: 1024px) 100vw, 50vw"
         />
 
         {/* 光のエフェクト */}
@@ -126,15 +126,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         ></div>
       </div>
 
-      {/* コンテンツセクション - スライド＆フェード */}
+      {/* コンテンツセクション - 右側 */}
       <div
         className={`
-        bg-System-Gray-White px-4 lg:px-10 py-6 lg:py-8 rounded-lg flex flex-col gap-4 lg:gap-6 lg:flex-1 lg:justify-between
+        bg-System-Gray-White px-4 lg:px-10 py-6 lg:py-8 rounded-lg flex flex-col gap-4 lg:gap-6 lg:w-1/2 justify-center
         transition-all duration-800 ease-out transform-gpu
         ${
           contentVisible
-            ? "opacity-100 translate-y-0 scale-100"
-            : "opacity-0 translate-y-8 scale-95"
+            ? "opacity-100 translate-x-0 scale-100"
+            : "opacity-0 translate-x-8 scale-95"
         }
         hover:shadow-lg hover:-translate-y-1
         relative overflow-hidden
@@ -149,8 +149,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           transition-all duration-600 ease-out
           ${
             contentVisible
-              ? "opacity-100 translate-x-0"
-              : "opacity-0 -translate-x-4"
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-4"
           }
         `}
         >
@@ -169,8 +169,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
             transition-all duration-500 ease-out delay-100
             ${
               contentVisible
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 -translate-x-4"
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
             }
           `}
           >
@@ -180,12 +180,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 
         <div
           className={`
-          flex flex-col gap-3 lg:gap-4 lg:flex-1 lg:justify-between relative z-10
+          flex flex-col gap-3 lg:gap-4 relative z-10
           transition-all duration-700 ease-out delay-200
           ${
             contentVisible
-              ? "opacity-100 translate-x-0"
-              : "opacity-0 translate-x-4"
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-4"
           }
         `}
         >
@@ -269,8 +269,8 @@ const ServiceSection: React.FC = () => {
           </h2>
         </header>
 
-        {/* カードセクション */}
-        <div className="flex flex-col lg:flex-row justify-center gap-8 lg:gap-28 lg:items-stretch">
+        {/* カードセクション - 縦並び */}
+        <div className="flex flex-col">
           {serviceData.map((service, index) => (
             <ServiceCard
               key={service.id}
