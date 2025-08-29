@@ -86,8 +86,8 @@ export default function Page() {
 
           <FormTextField
             name="phone"
-            label="電話番号"
-            placeholder="000-0000‐0000"
+            label="電話番号（ハイフンなし）"
+            placeholder="00012345678"
             control={control}
             required={true}
           />
@@ -108,7 +108,7 @@ export default function Page() {
             className="px-8 sm:px-12 md:px-16 py-3 sm:py-4 bg-Main-Brown-2 rounded-full inline-flex justify-center items-center gap-2.5 overflow-hidden hover:bg-[#7A4A32] disabled:bg-[#7A4A32] disabled:opacity-50 transition-colors mt-4 sm:mt-6"
           >
             <div className="text-center justify-start text-white text-lg sm:text-xl font-bold font-['Noto_Serif_JP']">
-              {isSubmitting ? "送信中..." : "確認する"}
+              {isSubmitting ? "送信中..." : "送信する"}
             </div>
           </button>
         </form>

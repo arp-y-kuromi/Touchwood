@@ -11,7 +11,7 @@ export const FormSchema = z.object({
   phone: z
     .string()
     .min(1, { message: ERR_MSG_REQUIRED })
-    .refine((val) => /^\d{3}-\d{4}-\d{4}$/.test(val), {
+    .refine((val) => /^\d{10,11}$|^\d{2,4}-\d{2,4}-\d{4}$/.test(val), {
       message: "正しい電話番号の形式で入力してください。",
     }),
   message: z.string().optional(),
