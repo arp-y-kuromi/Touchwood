@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
     const resend = new Resend(resendApiKey);
 
     const { data, error } = await resend.emails.send({
-      from: "HomepagemakerPro <info@homepagemaker-pro.com>",
-      to: ["info@homepagemaker-pro.com"],
+      from: "Touchwoodホームページ <info@homepagemaker-pro.com>",
+      to: ["hayahayato0901@gmail.com"],
       subject: "ホームページからのお問い合わせ",
       html: EmailTemplate({
         userName,

@@ -2,7 +2,7 @@ import React from "react";
 import MainVisual from "./components/MainVisual";
 import Content from "./components/Content";
 import MenuContent from "./menu/components/Content";
-import ServiceContent from "./service/components/Content";
+import { ServiceSection } from "./service";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
       <MainVisual />
       <Content />
       <MenuContent />
-      <ServiceContent />
+      <ServiceSection />
     </div>
   );
 }
