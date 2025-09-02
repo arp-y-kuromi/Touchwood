@@ -1,18 +1,18 @@
+import Footer from "@/layout/footer";
+import Header from "@/layout/header";
 import type { Metadata } from "next";
 import {
+  Croissant_One,
   Geist,
   Geist_Mono,
-  Croissant_One,
   Noto_Serif_JP,
 } from "next/font/google";
 import "./globals.css";
-import Header from "@/layout/header";
-import Footer from "@/layout/footer";
 
 export const metadata: Metadata = {
   title: "Touch wood",
   description:
-    "Touch woodは、旬の食材と居心地の良い雰囲気に重点を置いたユニークなダイニング体験を提供するレストランです。",
+    "Touch woodは、南フランスとスペインの地中海料理を中心に太陽と風を感じるような一皿をカジュアルに愉しめるビストロです。",
 };
 
 const geistSans = Geist({
@@ -45,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-Main-Brown-4`}
       >
