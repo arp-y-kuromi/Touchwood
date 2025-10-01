@@ -68,22 +68,6 @@ const MainVisual: React.FC = () => {
           >
             お客様の日常に小さな幸せを
           </p>
-
-          <p
-            className={`text-center mt-10 md:text-xl text-xs text-gray-900 transition-all duration-1000 delay-500 font-['Noto_Serif_JP'] ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-          >
-            出張料理、ケータリングセクションにお問い合わせはこちら
-          </p>
-          <a
-            href="https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=13311579"
-            className="mt-5 px-6 py-2 bg-Main-Green-2 rounded-full text-System-Gray-White text-xl font-black hover:bg-Main-Green-3 transition-colors duration-300"
-          >
-            Contact
-          </a>
         </div>
       </div>
     </div>
