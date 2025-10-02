@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Content from "./Content";
 
 const MainVisual: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -50,24 +51,7 @@ const MainVisual: React.FC = () => {
 
         {/* テキストオーバーレイ */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
-          <h1
-            className={`text-4xl md:text-7xl font-bold text-gray-800 mb-4 md:mb-6 tracking-wider transition-all duration-1000 delay-300 font-['Noto_Serif_JP'] ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-          >
-            Touch wood
-          </h1>
-          <p
-            className={`text-lg md:text-2xl text-gray-900 font-medium transition-all duration-1000 delay-500 font-['Noto_Serif_JP'] ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-          >
-            お客様の日常に小さな幸せを
-          </p>
+          <Content />
         </div>
       </div>
     </div>
