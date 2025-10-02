@@ -1,7 +1,25 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { ServiceCardProps } from "../types/service";
+
+interface Course {
+  name: string;
+  price?: string;
+  details: string;
+}
+
+interface Service {
+  imageSrc: string;
+  imageAlt: string;
+  title: string;
+  courses: Course[];
+}
+
+interface ServiceCardProps {
+  service: Service;
+  index: number;
+  isVisible: boolean;
+}
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
   service,
@@ -37,11 +55,11 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           w-full md:w-1/2 lg:w-2/5 xl:w-1/2
           aspect-square md:aspect-auto md:min-h-[400px] lg:min-h-[500px]
           relative overflow-hidden
-          transition-all duration-1000 ease-out transform-gpu
+          transition-all duration-1000 ease-out
           ${
             imageLoaded
-              ? "opacity-100 scale-100 translate-x-0"
-              : "opacity-0 scale-95 md:-translate-x-4 translate-y-4 md:translate-y-0"
+              ? "opacity-100 blur-0 scale-100"
+              : "opacity-0 blur-md scale-95"
           }
         `}
       >
@@ -61,11 +79,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           px-4 py-6 md:px-6 lg:px-8 xl:px-10
           bg-System-Gray-White 
           flex flex-col justify-center items-start gap-4 md:gap-6
-          transition-all duration-800 ease-out transform-gpu
+          transition-all duration-800 ease-out
+          relative
           ${
             contentVisible
-              ? "opacity-100 translate-x-0 scale-100"
-              : "opacity-0 translate-y-4 md:translate-y-0 md:translate-x-4 scale-95"
+              ? "opacity-100 blur-0 scale-100"
+              : "opacity-0 blur-sm scale-95"
           }
         `}
       >
@@ -102,6 +121,16 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
               )}
             </React.Fragment>
           ))}
+        </div>
+
+        {/* Contactボタン - 右下に配置 */}
+        <div className="w-full flex justify-end">
+          <a
+            href="https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=13311579"
+            className="mt-5 px-6 py-2 bg-Main-Green-2 rounded-full text-System-Gray-White text-xl font-black hover:bg-Main-Green-3 transition-colors duration-300"
+          >
+            Contact
+          </a>
         </div>
       </div>
     </div>
