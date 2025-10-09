@@ -15,6 +15,7 @@ export interface ServiceItem {
   imageSrc: string[];
   imageAlt: string;
   courses: CourseItem[];
+  content: string;
 }
 
 export interface ServiceCardProps {

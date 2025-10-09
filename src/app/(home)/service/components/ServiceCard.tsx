@@ -13,6 +13,7 @@ interface Service {
   imageAlt: string;
   title: string;
   courses: Course[];
+  content: string;
 }
 
 interface ServiceCardProps {
@@ -117,6 +118,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         <h3 className="text-Main-Green-2 text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold font-['Noto_Serif_JP'] leading-tight">
           {service.title}
         </h3>
+
+        {/* 説明メッセージエリア - 追加 */}
+        {service.content && (
+          <div className="w-full px-3 md:px-4 lg:px-6 py-4 rounded-lg">
+            <p className="text-Main-Brown-2 text-sm md:text-base font-normal font-['Noto_Serif_JP'] leading-relaxed whitespace-pre-line">
+              {service.content}
+            </p>
+          </div>
+        )}
 
         {/* コースリスト */}
         <div className="w-full flex flex-col">
