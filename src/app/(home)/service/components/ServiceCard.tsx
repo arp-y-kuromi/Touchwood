@@ -9,7 +9,7 @@ interface Course {
 }
 
 interface Service {
-  imageSrc: string;
+  imageSrc: string[];
   imageAlt: string;
   title: string;
   courses: Course[];
@@ -28,6 +28,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     if (isVisible) {
@@ -47,6 +48,17 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     }
   }, [isVisible, index]);
 
+  // 画像スライダーのタイマー
+  useEffect(() => {
+    if (!isVisible || service.imageSrc.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % service.imageSrc.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isVisible, service.imageSrc.length]);
+
   return (
     <div className="w-full flex flex-col md:flex-row justify-center items-stretch">
       {/* 画像セクション */}
@@ -63,13 +75,26 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           }
         `}
       >
-        <Image
-          className="object-cover object-center w-full h-full"
-          src={service.imageSrc}
-          alt={service.imageAlt}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-        />
+        {/* 画像スライダー */}
+        {service.imageSrc.map((src, imgIndex) => (
+          <Image
+            key={imgIndex}
+            className={`
+              object-cover object-center w-full h-full
+              transition-all duration-1000 ease-in-out
+              ${
+                imgIndex === currentImageIndex
+                  ? "opacity-100 z-[5]"
+                  : "opacity-0 z-[1]"
+              }
+            `}
+            src={src}
+            alt={service.imageAlt}
+            fill
+            priority={imgIndex === 0}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+          />
+        ))}
       </div>
 
       {/* コンテンツセクション */}

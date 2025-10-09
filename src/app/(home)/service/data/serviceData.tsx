@@ -7,7 +7,7 @@ export const serviceData: ServiceItem[] = [
     subtitle: "",
     description: null,
     note: "",
-    imageSrc: "/images/service2.jpg",
+    imageSrc: ["/images/main1.JPG", "/images/menu2.jpeg"],
     imageAlt: "出張料理サービス",
     courses: [
       {
@@ -39,7 +39,7 @@ export const serviceData: ServiceItem[] = [
     subtitle: "",
     description: null,
     note: "",
-    imageSrc: "/images/main1.JPG",
+    imageSrc: ["/images/catering1.jpeg", "/images/catering2.jpeg"],
     imageAlt: "ケータリングサービス",
     courses: [
       {
