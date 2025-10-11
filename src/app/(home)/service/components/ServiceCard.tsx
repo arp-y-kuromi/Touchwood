@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import React, { useEffect, useState } from "react";
 
 interface Course {
   name: string;
@@ -9,25 +9,29 @@ interface Course {
 }
 
 interface Service {
-  imageSrc: string;
+  imageSrc: string[];
   imageAlt: string;
   title: string;
   courses: Course[];
+  content: string;
 }
 
 interface ServiceCardProps {
   service: Service;
   index: number;
   isVisible: boolean;
+  url: string;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
   service,
   index,
   isVisible,
+  url,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     if (isVisible) {
@@ -47,6 +51,17 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     }
   }, [isVisible, index]);
 
+  // 画像スライダーのタイマー
+  useEffect(() => {
+    if (!isVisible || service.imageSrc.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % service.imageSrc.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isVisible, service.imageSrc.length]);
+
   return (
     <div className="w-full flex flex-col md:flex-row justify-center items-stretch">
       {/* 画像セクション */}
@@ -63,13 +78,26 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           }
         `}
       >
-        <Image
-          className="object-cover object-center w-full h-full"
-          src={service.imageSrc}
-          alt={service.imageAlt}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-        />
+        {/* 画像スライダー */}
+        {service.imageSrc.map((src, imgIndex) => (
+          <Image
+            key={imgIndex}
+            className={`
+              object-cover object-center w-full h-full
+              transition-all duration-1000 ease-in-out
+              ${
+                imgIndex === currentImageIndex
+                  ? "opacity-100 z-[5]"
+                  : "opacity-0 z-[1]"
+              }
+            `}
+            src={src}
+            alt={service.imageAlt}
+            fill
+            priority={imgIndex === 0}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+          />
+        ))}
       </div>
 
       {/* コンテンツセクション */}
@@ -92,6 +120,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         <h3 className="text-Main-Green-2 text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold font-['Noto_Serif_JP'] leading-tight">
           {service.title}
         </h3>
+
+        {/* 説明メッセージエリア - 追加 */}
+        {service.content && (
+          <div className="w-full px-3 md:px-4 lg:px-6 py-4 rounded-lg">
+            <p className="text-Main-Brown-2 text-sm md:text-base font-normal font-['Noto_Serif_JP'] leading-relaxed whitespace-pre-line">
+              {service.content}
+            </p>
+          </div>
+        )}
 
         {/* コースリスト */}
         <div className="w-full flex flex-col">
@@ -126,7 +163,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         {/* Contactボタン - 右下に配置 */}
         <div className="w-full flex justify-end">
           <a
-            href="https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=13311579"
+            href={url}
             className="mt-5 px-6 py-2 bg-Main-Green-2 rounded-full text-System-Gray-White text-xl font-black hover:bg-Main-Green-3 transition-colors duration-300"
           >
             Contact

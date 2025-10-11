@@ -12,9 +12,10 @@ export interface ServiceItem {
   subtitle: string;
   description: React.ReactNode | null;
   note: string;
-  imageSrc: string;
+  imageSrc: string[];
   imageAlt: string;
   courses: CourseItem[];
+  content: string;
 }
 
 export interface ServiceCardProps {

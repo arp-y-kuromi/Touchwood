@@ -7,7 +7,7 @@ export const serviceData: ServiceItem[] = [
     subtitle: "",
     description: null,
     note: "",
-    imageSrc: "/images/service2.jpg",
+    imageSrc: ["/images/main1.JPG", "/images/menu2.jpeg"],
     imageAlt: "出張料理サービス",
     courses: [
       {
@@ -32,6 +32,8 @@ export const serviceData: ServiceItem[] = [
         details: "最低人数：2人～\n形式：出張料理",
       },
     ],
+    content:
+      "ご自宅にいながらも、まるでレストランにいるかのようなひとときを。\n地中海の料理をベースとした、ホッとする料理をお届けします。",
   },
   {
     id: "event-catering",
@@ -39,7 +41,7 @@ export const serviceData: ServiceItem[] = [
     subtitle: "",
     description: null,
     note: "",
-    imageSrc: "/images/main1.JPG",
+    imageSrc: ["/images/catering1.jpeg", "/images/catering2.jpeg"],
     imageAlt: "ケータリングサービス",
     courses: [
       {
@@ -49,5 +51,7 @@ export const serviceData: ServiceItem[] = [
           "料金：4000〜円／人（20名以上の予約での価格）\n最低人数：5人〜200人\n形式：ケータリング\nメニュー例：前菜3品＋パスタ1品＋メイン1品、またはピンチョス＋メイン or パスタ＋デザート等（自由にアレンジ可）",
       },
     ],
+    content:
+      "イベント、ポップアップ、結婚式の2次会や大人数での会食、レンタルスペースをご利用の際など様々なシーンでご利用いただけます。\n100名様以上もご対応可能です。",
   },
 ];

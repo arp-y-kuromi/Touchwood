@@ -39,6 +39,12 @@ const menuCourses: MenuCourse[] = [
   },
 ];
 
+const menuImages = [
+  "/images/menu.JPG",
+  "/images/course1.jpeg",
+  "/images/course2.jpeg",
+];
+
 const allergyNote =
   "※アレルギー食材等ございましたら、ご予約時にお申し付けください。";
 
@@ -191,11 +197,23 @@ const MenuImage: React.FC<{ isMobile?: boolean; isVisible: boolean }> = ({
   isVisible,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     if (isVisible) {
       setTimeout(() => setImageLoaded(true), 300);
     }
+  }, [isVisible]);
+
+  // 画像スライダーのタイマー
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % menuImages.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
   }, [isVisible]);
 
   if (isMobile) {
@@ -228,18 +246,25 @@ const MenuImage: React.FC<{ isMobile?: boolean; isVisible: boolean }> = ({
           />
 
           <div className="relative w-full h-48 overflow-hidden z-10">
-            <Image
-              src="/images/menu.JPG"
-              alt="Menu Image"
-              width={288}
-              height={192}
-              className={`
-                w-full h-48 object-cover
-                transition-all duration-700 ease-out
-                ${imageLoaded ? "filter-none" : "blur-sm brightness-75"}
-                group-hover:scale-110 group-hover:brightness-110
-              `}
-            />
+            {/* 画像スライダー */}
+            {menuImages.map((src, imgIndex) => (
+              <Image
+                key={imgIndex}
+                src={src}
+                alt="Menu Image"
+                width={288}
+                height={192}
+                className={`
+                  absolute inset-0 w-full h-48 object-cover
+                  transition-all duration-700 ease-out
+                  ${imageLoaded ? "filter-none" : "blur-sm brightness-75"}
+                  ${
+                    imgIndex === currentImageIndex ? "opacity-100" : "opacity-0"
+                  }
+                  group-hover:scale-110 group-hover:brightness-110
+                `}
+              />
+            ))}
 
             {/* 光のエフェクト */}
             <div
@@ -290,17 +315,22 @@ const MenuImage: React.FC<{ isMobile?: boolean; isVisible: boolean }> = ({
       />
 
       <div className="relative w-full aspect-[16/10] overflow-hidden z-10">
-        <Image
-          src="/images/menu.JPG"
-          alt="Menu Image"
-          fill
-          className={`
-            object-cover
-            transition-all duration-800 ease-out
-            ${imageLoaded ? "filter-none" : "blur-sm brightness-75"}
-            group-hover:scale-110 group-hover:brightness-110
-          `}
-        />
+        {/* 画像スライダー */}
+        {menuImages.map((src, imgIndex) => (
+          <Image
+            key={imgIndex}
+            src={src}
+            alt="Menu Image"
+            fill
+            className={`
+              object-cover
+              transition-all duration-800 ease-out
+              ${imageLoaded ? "filter-none" : "blur-sm brightness-75"}
+              ${imgIndex === currentImageIndex ? "opacity-100" : "opacity-0"}
+              group-hover:scale-110 group-hover:brightness-110
+            `}
+          />
+        ))}
 
         {/* 光のエフェクト */}
         <div

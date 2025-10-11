@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import ServiceCard from "./ServiceCard";
 import { serviceData } from "../data/serviceData";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
+import ServiceCard from "./ServiceCard";
 
 const ServiceSection: React.FC = () => {
   const { elementRef, isVisible } = useIntersectionObserver();
@@ -23,6 +23,11 @@ const ServiceSection: React.FC = () => {
               service={service}
               index={index}
               isVisible={isVisible}
+              url={
+                index === 0
+                  ? "https://docs.google.com/forms/d/e/1FAIpQLScrWhwHv1l7v2Ec8GxuUNEabyfxwOMZlSK4CkQMKVi6mChnOQ/viewform"
+                  : "https://docs.google.com/forms/d/e/1FAIpQLSdQQhOFdOAE85lfm280cLGm1jfmvJ24EE2Vrdv2vrgsGUpsRQ/viewform"
+              }
             />
           ))}
         </div>
