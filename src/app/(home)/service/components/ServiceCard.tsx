@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import React, { useEffect, useState } from "react";
 
 interface Course {
   name: string;
@@ -20,12 +20,14 @@ interface ServiceCardProps {
   service: Service;
   index: number;
   isVisible: boolean;
+  url: string;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
   service,
   index,
   isVisible,
+  url,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
@@ -161,7 +163,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         {/* Contactボタン - 右下に配置 */}
         <div className="w-full flex justify-end">
           <a
-            href="https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=13311579"
+            href={url}
             className="mt-5 px-6 py-2 bg-Main-Green-2 rounded-full text-System-Gray-White text-xl font-black hover:bg-Main-Green-3 transition-colors duration-300"
           >
             Contact
