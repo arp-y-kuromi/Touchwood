@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import Content from "./Content";
 
 const MainVisual: React.FC = () => {
@@ -12,6 +12,8 @@ const MainVisual: React.FC = () => {
     "/images/main1.JPG",
     "/images/service.jpeg",
     "/images/menu.JPG",
+    "/images/instore1.jpeg",
+    "/images/instore2.jpeg",
   ];
 
   useEffect(() => {
