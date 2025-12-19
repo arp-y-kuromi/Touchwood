@@ -19,7 +19,7 @@ jobs:
       - name: Node.js セットアップ
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: "20"
 
       - name: 依存関係インストール
         run: npm ci
